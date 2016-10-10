@@ -1,0 +1,14 @@
+body {
+  background-color: gray;
+}
+
+#calc {
+  margin-top: 5%;
+  background-color: #111;
+  color: #ddd;
+  border-radius: 1rem;
+}
+
+.well h1, .well p {
+  color: #000;
+}
