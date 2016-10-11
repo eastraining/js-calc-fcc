@@ -5,6 +5,10 @@
 	border-radius: 1rem;
 }
 
+.well {
+	height: 16rem;
+}
+
 .well p {
 	color: #777;
 	font-size: 2rem;
@@ -12,7 +16,7 @@
 
 .well h1 {
 	color: #000;
-	font-size: 9rem;
+	font-size: 7rem;
 }
 
 .btn-group > .btn {
