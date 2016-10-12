@@ -3,8 +3,6 @@ $(document).ready(function() {
 	var display = "";
 	$(".btn").click(function() {
 		var that = $(this).html();
-		console.log(that);
-		console.log(that.match(/[\.]/));
 		// anything not involving calculation
 		if (that.match(/[0-9]/)) {
 			equation += that;
@@ -60,8 +58,45 @@ $(document).ready(function() {
 				display = that;
 			}
 		}
+		else if (that.match("\=") && equation[equation.length - 1].match(/[0-9]/)) {
+			var temp = 0;
+			var numbers = equation.split(/[^\.0-9]/g);
+			// handles negative numbers
+			if (numbers[0] == "") {
+				numbers.shift();
+				numbers[0] *= -1;
+			}
+			numbers.push(numbers.shift());
+			for (var i = 0; i < numbers.length; i++) {
+				numbers[i] = parseFloat(numbers[i]);
+			}
+			var operators = equation.split("").filter(function(item, i, arr) {
+				return item.match(/[^\.0-9]/);
+			});
+			for (var j = 0; j < operators.length; j++) {
+				switch (operators[j]) {
+					case "\xD7":
+						temp = numbers.pop() * numbers.shift();
+						numbers.push(temp);
+						break;
+					case "\xF7":
+						temp = numbers.pop() / numbers.shift();
+						numbers.push(temp);
+						break;
+					case "\x2B":
+						temp = numbers.pop() + numbers.shift();
+						numbers.push(temp);
+						break;
+					case "\u2212":
+						temp = numbers.pop() - numbers.shift();
+						numbers.push(temp);
+						break;
+				}
+			}
+			display = numbers[0].toString();
+			equation = display;
+		}
 		$("#equation").html(equation);
 		$("#display").html(display);
-		// TODO: actual calculation
 	});
 });
